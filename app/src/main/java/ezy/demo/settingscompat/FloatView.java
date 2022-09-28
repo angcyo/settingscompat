@@ -4,14 +4,14 @@ import android.content.Context;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.os.Build;
-import android.support.v7.widget.AppCompatImageView;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.appcompat.widget.AppCompatImageView;
 
 public class FloatView extends AppCompatImageView {
 
@@ -90,32 +90,32 @@ public class FloatView extends AppCompatImageView {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                touchX = event.getX() + getLeft();
-                touchY = event.getY() + getTop();
-                startX = event.getRawX();
-                startY = event.getRawY();
-                isDragging = false;
-                break;
-            case MotionEvent.ACTION_MOVE:
-                int dx = (int) (event.getRawX() - startX);
-                int dy = (int) (event.getRawY() - startY);
-                if ((dx * dx + dy * dy) > mTouchSlop) {
-                    isDragging = true;
-                    mLp.x = (int) (event.getRawX() - touchX);
-                    mLp.y = (int) (event.getRawY() - touchY);
-                    mWm.updateViewLayout(FloatView.this, mLp);
-                    return true;
-                }
-                break;
-            case MotionEvent.ACTION_UP:
-            case MotionEvent.ACTION_CANCEL:
-                touchX = touchY = 0.0F;
-                if (isDragging) {
-                    reposition();
+                case MotionEvent.ACTION_DOWN:
+                    touchX = event.getX() + getLeft();
+                    touchY = event.getY() + getTop();
+                    startX = event.getRawX();
+                    startY = event.getRawY();
                     isDragging = false;
-                    return true;
-                }
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    int dx = (int) (event.getRawX() - startX);
+                    int dy = (int) (event.getRawY() - startY);
+                    if ((dx * dx + dy * dy) > mTouchSlop) {
+                        isDragging = true;
+                        mLp.x = (int) (event.getRawX() - touchX);
+                        mLp.y = (int) (event.getRawY() - touchY);
+                        mWm.updateViewLayout(FloatView.this, mLp);
+                        return true;
+                    }
+                    break;
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL:
+                    touchX = touchY = 0.0F;
+                    if (isDragging) {
+                        reposition();
+                        isDragging = false;
+                        return true;
+                    }
             }
             return false;
         }

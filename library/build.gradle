@@ -1,18 +1,17 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
+//apply plugin: 'com.github.dcendents.android-maven'
 
 group='com.github.czy1121'
 version='1.1.4'
 archivesBaseName='settingscompat'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 32
 
     defaultConfig {
 
         minSdkVersion 16
-        targetSdkVersion 24
+        targetSdkVersion 32
         versionCode 1
         versionName version
 
@@ -28,14 +27,13 @@ android {
     }
 }
 
-
-
-
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:25.+'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //compile 'com.android.support:appcompat-v7:25.+'
+    implementation "androidx.appcompat:appcompat:1.5.1" //minCompileSdk (32)
 }
 
+/*
 
 // build a jar with source files
 task sourcesJar(type: Jar) {
@@ -60,5 +58,6 @@ artifacts {
     archives sourcesJar
     archives javadocJar
 }
+*/
 
 

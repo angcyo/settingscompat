@@ -7,10 +7,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             vResult.setText(RomUtil.getVersion() + "\n" + RomUtil.getName() + "\ngranted");
 //            vFloat.attach();
         } else {
-            vResult.setText(RomUtil.getVersion() + "\n" +RomUtil.getName() + "\ndenied");
+            vResult.setText(RomUtil.getVersion() + "\n" + RomUtil.getName() + "\ndenied");
 //            vFloat.detach();
         }
     }
@@ -73,37 +74,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
 
         switch (v.getId()) {
-        case R.id.detail:
-            Intent intent1 = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-            intent1.setData(Uri.fromParts("package", this.getPackageName(), null));
-            startActivity(intent1);
-            break;
-        case R.id.result:
-            ClipboardManager manager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-            manager.setPrimaryClip(ClipData.newPlainText("build.prop", readString("/system/build.prop")));
-            break;
-        case R.id.check:
-            checkPermission();
-            if (SettingsCompat.canDrawOverlays(this)) {
-                vFloat.attach();
-            } else {
-                vFloat.detach();
-            }
-            break;
-        case R.id.manage:
-            SettingsCompat.manageDrawOverlays(this);
-            break;
-        case R.id.toggle:
-            boolean granted1 = SettingsCompat.canDrawOverlays(this);
-            SettingsCompat.setDrawOverlays(this, !granted1);
-            boolean granted2 = SettingsCompat.canDrawOverlays(this);
-            vResult.setText(RomUtil.getVersion() + "\n" +RomUtil.getName() + "\ngranted: " + granted1 + ", " + granted2);
-            if (granted2) {
-                vFloat.attach();
-            } else {
-                vFloat.detach();
-            }
-            break;
+            case R.id.detail:
+                Intent intent1 = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                intent1.setData(Uri.fromParts("package", this.getPackageName(), null));
+                startActivity(intent1);
+                break;
+            case R.id.result:
+                ClipboardManager manager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                manager.setPrimaryClip(ClipData.newPlainText("build.prop", readString("/system/build.prop")));
+                break;
+            case R.id.check:
+                checkPermission();
+                if (SettingsCompat.canDrawOverlays(this)) {
+                    vFloat.attach();
+                } else {
+                    vFloat.detach();
+                }
+                break;
+            case R.id.manage:
+                SettingsCompat.manageDrawOverlays(this);
+                break;
+            case R.id.toggle:
+                boolean granted1 = SettingsCompat.canDrawOverlays(this);
+                SettingsCompat.setDrawOverlays(this, !granted1);
+                boolean granted2 = SettingsCompat.canDrawOverlays(this);
+                vResult.setText(RomUtil.getVersion() + "\n" + RomUtil.getName() + "\ngranted: " + granted1 + ", " + granted2);
+                if (granted2) {
+                    vFloat.attach();
+                } else {
+                    vFloat.detach();
+                }
+                break;
 
         }
     }
